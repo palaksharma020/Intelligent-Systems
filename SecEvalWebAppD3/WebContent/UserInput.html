@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>AngularJS Security Evaluation Web Application</title>
+<style>
+.input.ng-valid {
+	background-color: lightgreen;
+}
+
+.input.ng-dirty.ng-invalid-required {
+	background-color: red;
+}
+
+
+
+</style>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body ng-app="myApp" class="ng-cloak">
+	<div class="container" ng-controller="SecurityController as ctrl">
+		<form ng-submit="ctrl.sendPost()" name="myForm"
+			class="form-horizontal">
+			<div class="panel-heading text-center">
+				<span class="lead">SecureAgent - Security Evaluation Expert System</span>
+			</div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<span class="lead">Security Budget Impact Evaluation </span>
+				</div>
+				<div class="formcontainer">
+					<h2></h2>
+					<div class="row">
+						<div class="form-group col-md-10">
+							<label class="col-md-9 control-lable" for="uname">Q1.
+								What is the total information security budget across all agency
+								systems?</label>
+							<div class="col-md-3">
+								<input type="number" ng-model="ctrl.user_inputs.a1" id="a1" name="a1"
+									class="input form-control input-sm"
+									placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+								<div class="has-error" ng-show="myForm.$dirty">
+									<span ng-show="myForm.a1.$error.required">This is a required field</span> 
+									<span ng-show="myForm.a1.$invalid" style="color:red">This field is invalid.Enter positive numeric value. </span>
+									<!-- <span ng-show="!myForm.a1.$valid" style="color:red">Enter numeric value.</span> -->
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<div class="row">
+						<div class="form-group col-md-10">
+							<label class="col-md-9 control-lable" for="email">Q2.
+								What is the total information technology budget across all
+								agency systems?</label>
+							<div class="col-md-3">
+								<input type="number" ng-model="ctrl.user_inputs.a2" id="a2"
+									class="input form-control input-sm"
+									placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+								<div class="has-error" ng-show="myForm.$dirty">
+									<span ng-show="myForm.a2.$error.required">This is a
+										required field</span> <span ng-show="myForm.a2.$invalid" style="color:red">This field is invalid.Enter positive numeric value. </span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="panel panel-primary">
+				<!-- Default panel contents -->
+				<div class="panel-heading">
+					<span class="lead">Vulnerability Efficiency Evaluation</span>
+				</div>
+				<h2></h2>
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q1.
+							Number of high vulnerabilities identified across the enterprise
+							during the time period?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.b1" id="b1"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.b1.$error.required">This is a
+									required field</span> <span ng-show="myForm.b1.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q2.
+							Number of high vulnerabilities mitigated across the enterprise
+							during the time period?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.b2" id="b2"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.b2.$error.required">This is a
+									required field</span> <span ng-show="myForm.b2.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="panel panel-primary">
+				<!-- Default panel contents -->
+				<div class="panel-heading">
+					<span class="lead"> Access Points Efficiency Evaluation
+						Evaluation</span>
+				</div>
+				<h2></h2>
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q1. Does
+							the organization use automated tools to maintain an up-to-that
+							identifies all remote access points?</label>
+						<div class="col-md-3">
+							<label><input type="radio" name="c1"
+								ng-model="ctrl.user_inputs.c1" value="Y" />Yes</label> <label><input
+								type="radio" name="c1" ng-model="ctrl.user_inputs.c1" value="N" ng-checked="true"/>No</label>
+							<!-- <input type="text" ng-model="ctrl.user_inputs.c1" id="c1"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" required /> -->
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c1.$error.required">This is a
+									required field</span> <span ng-show="myForm.c1.$invalid">This
+									field is invalid </span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q2. How
+							many remote access points exist in the organization’s network?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.c2" id="c2"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c2.$error.required">This is a
+									required field</span> <span ng-show="myForm.c2.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q3. Does
+							the organization employ Intrusion Detection Systems (IDS) to
+							monitor traffic traversing remote access points?</label>
+						<div class="col-md-3">
+							<label><input type="radio" name="c3"
+								ng-model="ctrl.user_inputs.c3" value="Y" />Yes</label> <label><input
+								type="radio" name="c3" ng-model="ctrl.user_inputs.c3" value="N" ng-checked="true"/>No</label>
+							<!-- <input type="text" ng-model="ctrl.user_inputs.c3" id="c3"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" required /> -->
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c3.$error.required">This is a
+									required field</span> <span ng-show="myForm.c3.$invalid">This
+									field is invalid </span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q4. Does
+							the organization collect and review audit logs associated with
+							all remote access points?</label>
+						<div class="col-md-3">
+							<label><input type="radio" name="c4"
+								ng-model="ctrl.user_inputs.c4" value="Y" />Yes</label> <label><input
+								type="radio" name="c4" ng-model="ctrl.user_inputs.c4" value="N" ng-checked="true"/>No</label>
+							<!-- <input type="text" ng-model="ctrl.user_inputs.c4" id="c4"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" required /> -->
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c4.$error.required">This is a
+									required field</span> <span ng-show="myForm.c4.$invalid">This
+									field is invalid </span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q5. Does
+							the organization maintain a security incident database that
+							identifies standardized incident categories for each incident?</label>
+						<div class="col-md-3">
+							<label><input type="radio" name="c5"
+								ng-model="ctrl.user_inputs.c5" value="Y" />Yes</label> <label><input
+								type="radio" name="c5" ng-model="ctrl.user_inputs.c5" value="N" ng-checked="true"/>No</label>
+							<!-- <input type="text" ng-model="ctrl.user_inputs.c5" id="c5"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" required /> -->
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c5.$error.required">This is a
+									required field</span> <span ng-show="myForm.c5.$invalid">This
+									field is invalid </span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q6.
+							Based on reviews of the incident database, IDS logs and alerts,
+							and/or appropriate remote access point log files, how many access
+							points have been used to gain unauthorized access within the
+							reporting period?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.c6" id="c6"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.c6.$error.required">This is a
+									required field</span> <span ng-show="myForm.c6.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="panel panel-primary">
+				<!-- Default panel contents -->
+				<div class="panel-heading">
+					<span class="lead"> Personnel Security Implementation
+						Evaluation</span>
+				</div>
+				<h2></h2>
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q1. How
+							many individuals have been granted access to organizational
+							information and information systems?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.d1" id="d1"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.d1.$error.required">This is a
+									required field</span> <span ng-show="myForm.d1.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q2. What
+							is the number of individuals who have completed personnel
+							screening?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.d2" id="d2"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.d2.$error.required">This is a
+									required field</span> <span ng-show="myForm.d2.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-primary">
+				<!-- Default panel contents -->
+				<div class="panel-heading">
+					<span class="lead"> Service Acquisition Implementation
+						Evaluation</span>
+				</div>
+				<h2></h2>
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q1. How
+							many active service acquisition contracts does the organization
+							have?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.e1" id="e1"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.e1.$error.required">This is a
+									required field</span> <span ng-show="myForm.e1.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-10">
+						<label class="col-md-9 control-lable" for="email">Q2. How
+							many active service acquisition contracts include security
+							requirements and specifications?</label>
+						<div class="col-md-3">
+							<input type="number" ng-model="ctrl.user_inputs.e2" id="e2"
+								class="input form-control input-sm"
+								placeholder="Enter your response in integers" ng-pattern="/^[0-9][0-9]{0,2}(?:,?[0-9]{3}){0,3}(?:\.[0-9]{1,2})?$/" required />
+							<div class="has-error" ng-show="myForm.$dirty">
+								<span ng-show="myForm.e2.$error.required">This is a
+									required field</span> <span ng-show="myForm.e2.$invalid" style="color:red">This field is invalid.Enter positive numeric value.</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Enter submit button here. -->
+			<div class="row">
+				<div class="form-group col-md-10">
+					<div class="col-md-9 control-lable">
+						<input type="submit" value="Submit" class="btn btn-primary btn-sm"
+							ng-disabled="myForm.$invalid" ng-click="showPanel">
+					</div>
+				</div>
+			</div>
+
+		</form>
+
+		<div class="panel panel-primary" ng-show="showPanel">
+			<!-- Default panel contents -->
+			<div class="panel-heading">
+				<span class="lead">Evaluation Results</span>
+			</div>
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th width="20%">Performance Evaluation Measure</th>
+							<th width="20%"> Evaluation Result</th>
+							<th width="20%"> Evaluation Percentage (%)</th>
+							<th width="20%"> Desired Percentage Range (%)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="u in ctrl.evaluations">
+							<td><span ng-bind="u.metricDesc"></span></td>
+							<td><span ng-bind="u.evalResDesc"></span></td>
+							<td><span ng-bind="u.percentage | number:1"></span></td>
+							<td><span ng-bind="u.desiredEvalResDesc"></span></td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="panel panel-primary" ng-show="showPanel">
+			<!-- Default panel contents -->
+			<div class="panel-heading">
+				<span class="lead">Recommendations</span>
+			</div>
+			<div class="tablecontainer">
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="u in ctrl.recommendations">
+							<td><span ng-bind="u"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+	<script src="app.js"></script>
+	<script src="security_service.js"></script>
+	<script src="security_controller.js"></script>
+</body>
+</html>

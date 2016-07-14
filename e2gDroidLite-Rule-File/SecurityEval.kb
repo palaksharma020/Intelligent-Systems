@@ -1,0 +1,148 @@
+REM Test knowledge base demonstrating v8.0 features
+
+PARAM [DISCLAIMER] = "<html>This application is intended only for academic purposes</html>" 
+PARAM [TITLECOLOR] = "#0000FF"
+PARAM [APPTITLE] = "SecureAgent : Security Evaluation Expert System" 
+PARAM [BGCOLOR] = "#FFFFFF" 
+
+REM Following rule provided to allow use of [auto id] parameter in prompt
+RULE [dummy to allow input of iq one attribute]
+If [iq one] > 0
+Then [dummy] = true
+
+REM Following rule provided to allow use of [auto id] parameter in prompt
+RULE [dummy1 to allow input of iq two attribute]
+If [iq two] > 0
+Then [dummy1] = true
+
+RULE [iq two value change] 
+If [iq two] >= 0
+Then [dummyIQ2] = {[iq two]}
+
+RULE [Calculate Impact Budget Percentage1]
+If [iq one] ? and
+[iq two] ?
+Then [Impact Budget Percentage1] = {([iq two] / [iq one]) * 100}
+
+RULE [Calculate Access Point Efficiency Percentage1]
+If [iq three] ? and
+[iq four] ?
+Then [Access Point Efficiency  Percentage1] = {([iq four] / [iq three]) * 100}
+
+RULE [Impact Security Budget Bad] 
+If [Impact Budget Percentage1] <= 75
+Then [The Security Budget Impact Evaluation Result] = "Bad" and
+[The Security Budget Impact Evaluation Percentage] = {[Impact Budget Percentage1]} and
+[Security Budget Impact Recommendation is] = "Enforce standarized rules for security practices ate organization and program level."
+
+RULE [Impact Security Budget Med] 
+If [Impact Budget Percentage1] <= 90 and
+[Impact Budget Percentage1] > 75
+Then [The Security Budget Impact Evaluation Result] = "Medium" and
+[The Security Budget Impact Evaluation Percentage] = {[Impact Budget Percentage1]} and
+[Security Budget Impact Recommendation] = "Better strategies for authentication and authorization."
+
+RULE [Impact Security Budget Good] 
+If [Impact Budget Percentage1] > 90 and
+[Impact Budget Percentage1] <= 100
+Then [The Security Budget Impact Evaluation Result] = "Good" and
+[The Security Budget Impact Evaluation Percentage] = {[Impact Budget Percentage1]} and
+[Security Budget Impact Recommendation] = "Should maintain the current security level by contiuously implementing best security practices."
+
+RULE [Impact Security Budget CannotDetermine] 
+If [Impact Budget Percentage1] > 100 
+Then [The Security Budget Impact Evaluation Result] = "Cannot Determine" and
+[The Security Budget Impact Evaluation Percentage] = 0 and
+[Security Budget Impact Recommendation] = "Invalid Input.Security budget cannot be greater than total budget."
+
+RULE [Implementation Bad] 
+If [the organization uses] = "None of the above."
+Then [The Implementation Evaluation Result] = "Bad" and
+[The Implementation Evaluation Percentage] = 0 and
+[Implementation Recommendation] = "Should consult a information security analyst on high priority and reconstruct new security plan and start implementing it."
+
+RULE [Implementation Med] 
+If [the organization uses] = "Password Encryption Systems."
+Then [The Implementation Evaluation Result] = "Medium" and
+[The Implementation Evaluation Percentage] = 50 and
+[Implementation Recommendation] = "Employ and regularly check security sensor equippments."
+
+RULE [Implementation Med1] 
+If [the organization uses] = "Enforcement of latest Software updates."
+Then [The Implementation Evaluation Result] = "Medium" and
+[The Implementation Evaluation Percentage] = 50 and
+[Implementation Recommendation] = "Employ and regularly check security sensor equippments."
+
+RULE [Implementation Bad] 
+If [the organization uses] = "All of the above."
+Then [The Implementation Evaluation Result] = "Good" and
+[The Implementation Evaluation Percentage] = 100  and
+[Implementation Recommendation] = "Should maintain the current security level by contiuously implementing best security practices."
+
+RULE [Access Point Efficiency Good] 
+If [Access Point Efficiency  Percentage1] < 5
+Then [The ACP Efficiency Evaluation Result] = "Good" and
+[The ACP Efficiency Evaluation Percentage] = {[Access Point Efficiency  Percentage1]}  and
+[ACP Efficiency Recommendation] = "Should maintain the current security level by contiuously implementing best security practices."
+
+RULE [Access Point Efficiency Med] 
+If [Access Point Efficiency  Percentage1] >= 5 and
+[Access Point Efficiency  Percentage1] < 10
+Then [The ACP Efficiency Evaluation Result] = "Medium" and
+[The ACP Efficiency Evaluation Percentage] = {[Access Point Efficiency  Percentage1]}  and
+[ACP Efficiency Recommendation] = "Should inforce privacy standards at organization and project level.Desired ACP percentage should be less than 5 %."
+
+RULE [Access Point Efficiency Bad] 
+If [Access Point Efficiency  Percentage1] >= 10 and
+[Access Point Efficiency  Percentage1] <= 100
+Then [The ACP Efficiency Evaluation Result] = "Bad" and
+[The ACP Efficiency Evaluation Percentage] = {[Access Point Efficiency  Percentage1]}  and
+[ACP Efficiency Recommendation] = "Conduct training session for security awarness in the organization. Desired ACP percentage should be less than 5 %."
+
+RULE [Access Point Efficiency CannotDetermine] 
+If [Access Point Efficiency  Percentage1] > 100
+Then [The ACP Efficiency Evaluation Result] = "Cannot Determine" and
+[The ACP Efficiency Evaluation Percentage] = 0  and
+[ACP Efficiency Recommendation] = "Invalid Input. unauthorized access points cannot be greater than total access points."
+
+
+PROMPT [iq four] Numeric
+"Q5. How many access points have been used to gain unauthorized access within the reporting period ? (Enter your response in integers)"
+
+PROMPT [iq three] Numeric
+"Q4. How many remote access points exist in the organization network ? (Enter your response in integers)"
+
+PROMPT [the organization uses] ForcedChoice CF
+"Q3. The Organization uses (select best option):"
+"Password Encryption Systems."
+"Enforcement of latest Software updates."
+"None of the above."
+"All of the above."
+
+PROMPT [iq two] Numeric
+"Q2. What is the total information security budget across all agency systems ? (Enter your response in integers)"
+
+PROMPT [iq one] Numeric
+"Q1. What is the total information technology budget across all agency systems ? (Enter your response in integers)"
+
+FORMAT [The Security Budget Impact Evaluation Percentage] = "%8.2f"
+FORMAT [The ACP Efficiency Evaluation Percentage] = "%8.2f"
+FORMAT [The Implementation Evaluation Percentage] = "%8.2f"
+
+GOAL [ACP Efficiency Recommendation]
+GOAL [The ACP Efficiency Evaluation Percentage]
+GOAL [The ACP Efficiency Evaluation Result]
+
+GOAL [Implementation Recommendation] 
+GOAL [The Implementation Evaluation Percentage]
+GOAL [The Implementation Evaluation Result]
+
+GOAL [Security Budget Impact Recommendation]
+GOAL [The Security Budget Impact Evaluation Percentage]
+GOAL [The Security Budget Impact Evaluation Result]
+
+DEFAULT [iq one] = 1
+DEFAULT [iq two] = 0
+DEFAULT [the organization uses] = "None of the above."
+
+
